@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { randomUUID } from "crypto";
 import { CookieOptions } from "express";
 import { z } from "zod";
 import prisma from "../../../lib/prisma";
@@ -24,7 +25,7 @@ function generateAccessToken(userId: string, role: Role): string {
 }
 
 function generateRefreshToken(userId: string, role: Role): string {
-  return jwt.sign({ userId, role }, requireEnv("JWT_REFRESH_SECRET"), { expiresIn: "7d" });
+  return jwt.sign({ userId, role, jti: randomUUID() }, requireEnv("JWT_REFRESH_SECRET"), { expiresIn: "7d" });
 }
 
 const COOKIE_OPTIONS: CookieOptions = {
