@@ -1,5 +1,7 @@
 # blogger-api-ts
 
+[![CI](https://github.com/iricehasan/blogger-rest-api-ts/actions/workflows/ci.yml/badge.svg)](https://github.com/iricehasan/blogger-rest-api-ts/actions/workflows/ci.yml)
+
 A RESTful API for a blogging platform built with Node.js, Express, and PostgreSQL. TypeScript rewrite of [blogger-api-with-jwt-auth](../project) with strict typing, request validation, and pagination.
 
 ## Tech Stack
@@ -10,17 +12,24 @@ A RESTful API for a blogging platform built with Node.js, Express, and PostgreSQ
 - **Auth:** JWT (access + refresh tokens), bcrypt
 - **Validation:** Zod v4
 - **Logging:** Pino
+- **Rate Limiting:** express-rate-limit
+- **Caching:** Redis (client configured)
 - **Containerization:** Docker
+- **CI/CD:** GitHub Actions
 
 ## Features
 
 - JWT authentication with refresh token rotation
 - Role-based access control (Admin / NormalUser)
 - Refresh tokens stored in DB and revocable
+- Rate limiting on auth endpoints (register, login, refresh)
 - Request body validation with Zod — errors returned as structured field-level messages
 - Cursor-free pagination on list endpoints (`?page=1&limit=10`)
 - Structured JSON logging with Pino
 - Global error handling with Prisma error mapping
+- Unit and integration tests (Jest + Supertest)
+- Multi-stage Dockerfile and docker-compose for local development
+- CI pipeline with GitHub Actions (typecheck, test, Docker build)
 
 ## API Endpoints
 
@@ -123,8 +132,9 @@ GET /health
 
 ## Roadmap
 
+- [x] Rate limiting on auth routes
+- [x] Unit and integration testing (Jest + Supertest)
+- [x] Multi-stage Dockerfile for production builds
+- [x] CI/CD pipeline with GitHub Actions (typecheck, test, build)
 - [ ] Redis cache-aside for blog list endpoint
-- [ ] Rate limiting on auth routes
-- [ ] Unit and integration testing (Jest + Supertest)
-- [ ] Multi-stage Dockerfile for production builds
-- [ ] CI/CD pipeline with GitHub Actions (lint, test, build)
+- [ ] API documentation (Swagger / Postman collection)
