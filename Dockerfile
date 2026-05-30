@@ -1,6 +1,7 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 
+RUN npm install -g npm@11
 COPY package*.json .npmrc ./
 RUN npm ci
 
@@ -17,6 +18,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+RUN npm install -g npm@11
 COPY package*.json .npmrc ./
 RUN npm ci --omit=dev && npm cache clean --force
 
