@@ -1,13 +1,15 @@
+import { Role } from "@prisma/client";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { randomUUID } from "crypto";
 import { CookieOptions } from "express";
+import jwt from "jsonwebtoken";
 import { z } from "zod";
+
 import prisma from "../../../lib/prisma";
 import asyncHandler from "../../../middleware/asyncHandler";
 import { AppError } from "../../../middleware/errorHandler";
 import { TokenPayload } from "../../../types/jwt";
-import { Role } from "@prisma/client";
+
 import { registerSchema, loginSchema, changePasswordSchema } from "./schemas";
 
 type RegisterBody = z.infer<typeof registerSchema>;

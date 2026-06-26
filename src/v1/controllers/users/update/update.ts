@@ -1,8 +1,10 @@
+import { Role } from "@prisma/client";
 import { z } from "zod";
+
 import prisma from "../../../../lib/prisma";
 import asyncHandler from "../../../../middleware/asyncHandler";
 import { AppError } from "../../../../middleware/errorHandler";
-import { Role } from "@prisma/client";
+
 import { updateUserSchema } from "../schemas";
 
 type UpdateUserBody = z.infer<typeof updateUserSchema>;

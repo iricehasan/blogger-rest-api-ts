@@ -2,6 +2,7 @@ import prisma from "../../../../lib/prisma";
 import asyncHandler from "../../../../middleware/asyncHandler";
 import { AppError } from "../../../../middleware/errorHandler";
 
+
 export const deleteBlog = asyncHandler(async (req, res) => {
   const currentUser = req.user;
   if (!currentUser) throw new AppError(401, "Unauthorized");

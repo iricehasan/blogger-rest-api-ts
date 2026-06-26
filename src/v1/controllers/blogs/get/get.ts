@@ -1,6 +1,6 @@
+import { getPaginationParams, buildMeta } from "../../../../lib/paginate";
 import prisma from "../../../../lib/prisma";
 import asyncHandler from "../../../../middleware/asyncHandler";
-import { getPaginationParams, buildMeta } from "../../../../lib/paginate";
 
 export const getBlog = asyncHandler(async (req, res) => {
   const blogId = req.params.id as string;
