@@ -11,20 +11,11 @@ export const updateBlog = asyncHandler(async (req, res) => {
   if (!currentUser) throw new AppError(401, "Unauthorized");
 
   const blogId = req.params.id as string;
-  const blog = await prisma.blog.findUnique({ where: { id: blogId } });
-
-  if (!blog) {
-    res.status(404).json({ message: "Blog not found" });
-    return;
-  }
-  if (blog.authorId !== currentUser.id) {
-    res.status(403).json({ message: "Forbidden" });
-    return;
-  }
-
   const { title, content, imageUrl }: BlogBody = req.body;
+
+  // Instead of two requests findUnique and update, single request (atomic)
   const updatedBlog = await prisma.blog.update({
-    where: { id: blogId },
+    where: { id: blogId, authorId: currentUser.id },
     data: { title, content, imageUrl },
   });
 
